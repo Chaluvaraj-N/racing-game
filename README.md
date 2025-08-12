@@ -1,32 +1,51 @@
+A fast-paced HTML5 racing game with Car and Bike modes, Firebase analytics, realistic vehicle art, and sound effects.
 
-Advanced Car Game — Deluxe
+🎮 Features
+Car and Bike modes with switchable vehicles
 
-Files:
-- index.html
-- style.css
-- script.js
-- assets/ (car/bike PNGs, parallax backgrounds, explosion sprite, sound WAVs)
+Difficulty presets: Easy / Normal / Hard
 
-Firebase:
-- Firestore is auto-initialized using the embedded config in index.html
-- To change, edit the `window._firebaseConfig` object in index.html
-- For testing, set Firestore rules to allow writes:
-  service cloud.firestore {
-    match /databases/{database}/documents {
-      match /scores/{doc} {
-        allow read, write: if true;
-      }
-    }
-  }
+Realistic vehicles & road assets
 
-MP3 / OGG conversion:
-- I included WAV sound files. To convert to MP3 and OGG locally, run in the assets folder:
-  ffmpeg -i snd_engine_loop.wav -codec:a libmp3lame -q:a 2 snd_engine_loop.mp3
-  ffmpeg -i snd_engine_loop.wav -c:a libvorbis -q:a 5 snd_engine_loop.ogg
-- Or convert all WAVs with:
-  for f in *.wav; do ffmpeg -y -i "$f" -codec:a libmp3lame -q:a 2 "${f%.wav}.mp3"; done
-  for f in *.wav; do ffmpeg -y -i "$f" -c:a libvorbis -q:a 5 "${f%.wav}.ogg"; done
+Sound effects (MP3 + OGG for compatibility)
 
-Deploy:
-- Upload the folder to GitHub and enable GitHub Pages, or host with Netlify.
-- Ensure you do not publish sensitive credentials - Firebase web config is safe for client-side usage, but secure Firestore rules for production.
+Firebase analytics integration for player stats
+
+Works on desktop & mobile browsers
+
+🖼 Preview
+
+📂 Installation
+Clone the repo
+
+bash
+Copy
+Edit
+git clone https://github.com/yourusername/turbo-clash.git
+cd turbo-clash
+Add Firebase config
+
+Open js/firebase.js
+
+Paste your Firebase config in the firebaseConfig object
+
+Run locally
+
+Open index.html in your browser
+
+Or use a local server:
+
+bash
+Copy
+Edit
+npx live-server
+🚀 Deployment
+You can publish on GitHub Pages:
+
+Push the repo to GitHub
+
+Go to Settings → Pages → Deploy from branch
+
+Select branch main and folder /root
+
+Save — your game will be live!
