@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Advanced Car Game — Deluxe</title>
+
+  <!-- Firebase (compat) SDKs for Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+  // Embedded Firebase config (YOUR CONFIG)
+  window._firebaseConfig = {
+    apiKey: "AIzaSyC9UI_wDUmwaRPrTuP6P09x-5JHdZAPxyQ",
+    authDomain: "turbo-clash-b20df.firebaseapp.com",
+    projectId: "turbo-clash-b20df",
+    storageBucket: "turbo-clash-b20df.firebasestorage.app",
+    messagingSenderId: "754542490118",
+    appId: "1:754542490118:web:cb9daa06e335d797540987",
+    measurementId: "G-BXKYDL3RJR"
+  };
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header><h1>Advanced Car Game — Deluxe</h1></header>
+
+  <main>
+    <div id="gameWrapper">
+      <div id="gameContainer" tabindex="0" aria-label="Game area">
+        <!-- Parallax layers -->
+        <div id="bgFar" class="parallax"></div>
+        <div id="bgMid" class="parallax"></div>
+        <div id="bgNear" class="parallax"></div>
+
+        <!-- HUD -->
+        <div id="hud">
+          <div id="score">Score: 0</div>
+          <div id="speedLabel">Speed: 1.0x</div>
+        </div>
+
+        <!-- Settings -->
+        <div id="settingsPanel">
+          <label><input id="muteToggle" type="checkbox"> Mute</label>
+          <label>Music: <input id="musicVol" type="range" min="0" max="1" step="0.01" value="0.6"></label>
+          <label>SFX: <input id="sfxVol" type="range" min="0" max="1" step="0.01" value="1.0"></label>
+        </div>
+
+        <!-- Player -->
+        <div id="playerCar" class="car"></div>
+
+        <!-- Mobile touch controls -->
+        <div id="touchControls" aria-hidden="true">
+          <button class="touchBtn" data-action="left">◀</button>
+          <div class="verticalBtns">
+            <button class="touchBtn" data-action="up">▲</button>
+            <button class="touchBtn" data-action="down">▼</button>
+          </div>
+          <button class="touchBtn" data-action="right">▶</button>
+        </div>
+
+        <!-- Pause -->
+        <button id="pauseBtn" title="Pause">⏸</button>
+
+        <!-- Overlays -->
+        <div id="startOverlay" class="overlay">
+          <div class="panel">
+            <h2>Start Game</h2>
+            <p>Use Arrow keys or on-screen buttons. Hit an opponent = Game Over.</p>
+            <div class="row">
+              <label>Player name: <input id="playerName" placeholder="You" maxlength="12"></label>
+            </div>
+            <div class="row small">
+              <label><input id="useImages" type="checkbox" checked> Use images in assets/</label>
+            </div>
+            <button id="startBtn">Start</button>
+            <small>Audio will be enabled on start (user gesture required).</small>
+          </div>
+        </div>
+        <!-- Difficulty & Vehicle Selection: paste inside startOverlay .panel -->
+<div class="row">
+  <label>Difficulty:
+    <select id="difficultySelect">
+      <option value="easy">Easy</option>
+      <option value="normal" selected>Normal</option>
+      <option value="hard">Hard</option>
+    </select>
+  </label>
+</div>
+
+<div class="row">
+  <label>Vehicle:
+    <select id="vehicleSelect">
+      <option value="car" selected>Car</option>
+      <option value="bike">Bike</option>
+    </select>
+  </label>
+</div>
+
+
+        <div id="pauseOverlay" class="overlay hidden">
+          <div class="panel">
+            <h2>Paused</h2>
+            <button id="resumeBtn">Resume</button>
+            <button id="restartBtnFromPause">Restart</button>
+          </div>
+        </div>
+
+        <div id="gameOverOverlay" class="overlay hidden">
+          <div class="panel">
+            <h2>Game Over</h2>
+            <p id="finalScore">Score: 0</p>
+            <div class="row">
+              <button id="saveScoreBtn">Save Score (Local)</button>
+              <button id="saveScoreFirebaseBtn">Save Score (Firebase)</button>
+              <button id="restartBtn">Play Again</button>
+            </div>
+            <div id="leaderboardContainer">
+              <h3>Leaderboard</h3>
+              <ol id="leaderboard"></ol>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer><small>Built for learning — Chaluva</small></footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
