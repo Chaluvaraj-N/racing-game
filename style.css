@@ -1,0 +1,77 @@
+:root{
+  --game-w: 360px;
+  --game-h: 640px;
+  --accent: #60a5fa;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gradient(#041025,#001018);color:#fff;display:flex;flex-direction:column;align-items:center;}
+header{margin-top:12px} header h1{font-size:18px;margin:0;color:#dbeafe}
+
+#gameWrapper{width:100%;max-width:480px;display:flex;justify-content:center;padding:8px}
+#gameContainer{
+  position:relative;
+  width:var(--game-w);
+  height:var(--game-h);
+  overflow:hidden;
+  border-radius:12px;
+  background:linear-gradient(#1a2230,#111316);
+  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+  border:6px solid rgba(255,255,255,0.02);
+  touch-action:none;
+}
+
+/* Parallax layers */
+.parallax{position:absolute;left:0;right:0;top:0;height:100%;background-repeat:repeat-x;z-index:0;pointer-events:none}
+#bgFar{background-image: url("assets/bg-far.png"); opacity:0.7; z-index:0}
+#bgMid{background-image: url("assets/bg-mid.png"); opacity:0.85; z-index:0}
+#bgNear{background-image: url("assets/bg-near.png"); opacity:1; z-index:0}
+
+/* HUD */
+#hud{position:absolute;left:10px;top:8px;z-index:7;display:flex;gap:8px;align-items:center}
+#score,#speedLabel,#diffLabel{background:rgba(0,0,0,0.35);padding:6px 8px;border-radius:8px;font-weight:600;font-size:13px}
+
+/* Small settings */
+#settingsPanel{position:absolute;right:10px;top:8px;z-index:7;background:rgba(0,0,0,0.18);padding:6px;border-radius:8px;font-size:12px}
+
+/* Road center visual */
+#gameContainer::before{content:"";position:absolute;left:12%;right:12%;top:0;bottom:0;background:linear-gradient(#15181c,#0e1012);clip-path:inset(0 round 10px);z-index:1}
+
+/* dashed center lines */
+.roadLine{position:absolute;width:6px;height:110px;left:50%;transform:translateX(-50%);background:linear-gradient(white,rgba(255,255,255,0.9));border-radius:3px;z-index:2;opacity:0.9}
+
+/* cars */
+.car{position:absolute;width:56px;height:86px;border-radius:10px;z-index:4;background-size:cover;background-position:center;box-shadow:0 6px 18px rgba(0,0,0,0.6);transition: transform 160ms cubic-bezier(.22,.9,.12,1), top 80ms linear;}
+#playerCar{background-image:url("assets/player-car.png");background-color:#22c55e;left:50%;transform:translateX(-50%);bottom:18px}
+.opponent{position:absolute;width:56px;height:86px;border-radius:10px;z-index:3;background-image:url("assets/opponent-car.png");background-size:cover;background-position:center;box-shadow:0 4px 12px rgba(0,0,0,0.5)}
+
+/* power-up icons */
+.powerup{position:absolute;width:48px;height:48px;border-radius:10px;z-index:3;display:flex;align-items:center;justify-content:center;font-weight:800;color:#111}
+
+/* explosion sprite */
+.explosion{position:absolute;width:128px;height:128px;background-image:url("assets/explosion-sprite.png");background-size:cover;z-index:6;pointer-events:none;animation: explode 600ms steps(6) forwards;}
+@keyframes explode { from { background-position:0 0 } to { background-position:100% 0 } }
+
+/* overlays and panels */
+.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:7;background:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.6))}
+.panel{background:rgba(10,10,12,0.95);padding:18px;border-radius:12px;min-width:260px;text-align:center}
+.overlay .row{margin-top:8px}
+.overlay label{display:flex;gap:8px;align-items:center;justify-content:center}
+.overlay select{padding:6px;border-radius:8px;border:0;background:rgba(255,255,255,0.04);color:#fff;-webkit-appearance:none}
+.overlay input[type="text"], .overlay input[type="number"]{padding:6px;border-radius:8px;border:0;background:rgba(255,255,255,0.04);color:#fff}
+
+/* overlay buttons */
+.overlay button{margin-top:12px;padding:10px 16px;border-radius:10px;border:0;cursor:pointer;background:var(--accent);color:#042; font-weight:700}
+.overlay small{display:block;margin-top:8px;color:rgba(255,255,255,0.6)}
+.hidden{display:none}
+
+/* touch controls */
+#touchControls{position:absolute;bottom:10px;left:10px;display:flex;gap:10px;align-items:center;z-index:8;}
+.touchBtn{width:56px;height:56px;border-radius:10px;border:0;background:rgba(255,255,255,0.06);color:white;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:none}
+.verticalBtns{display:flex;flex-direction:column;gap:8px}
+
+/* leaderboard */
+#leaderboardContainer{margin-top:12px;text-align:left;max-height:180px;overflow:auto}
+#leaderboard{padding-left:20px}
+
+/* responsive */
+@media(max-width:420px){:root{--game-w:320px;--game-h:560px} .car{width:48px;height:74px} .touchBtn{width:48px;height:48px}}
